@@ -1,0 +1,50 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: compulsoryassignmentacr.azurecr.io
+        username: ${{ secrets.acr_compulsoryassignmentacr_username }}
+        password: ${{ secrets.acr_compulsoryassignmentacr_password }}
+    
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/ContainerizedPrimeCalculator/PrimeCalculator" -f  "ContainerizedPrimeCalculator/PrimeCalculator/Dockerfile" -t compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
+        docker push compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ secrets.aks_development_kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep development95ac | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace development95ac`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: development95ac
+        container-registry-url: compulsoryassignmentacr.azurecr.io
+        container-registry-username: ${{ secrets.acr_compulsoryassignmentacr_username }}
+        container-registry-password: ${{ secrets.acr_compulsoryassignmentacr_password }}
+        secret-name: developmentdockerauth
+       
+    - uses: azure/k8s-deploy@v1
+      with:
+        namespace: development95ac
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
+        imagepullsecrets: |
+          developmentdockerauth
