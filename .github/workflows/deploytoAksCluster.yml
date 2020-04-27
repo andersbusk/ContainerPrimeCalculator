@@ -14,7 +14,7 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/ContainerizedPrimeCalculator/PrimeCalculator" -f  "ContainerizedPrimeCalculator/PrimeCalculator/Dockerfile" -t compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/ContainerizedPrimeCalculator" -f  "ContainerizedPrimeCalculator/Dockerfile" -t compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
         docker push compulsoryassignmentacr.azurecr.io/development:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
