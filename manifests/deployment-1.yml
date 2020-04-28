@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "kubernetesdemo"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "kubernetesdemo"
+    spec:
+      containers:
+        - name: "kubernetesdemo"
+          image: "kubernetescontainerregistrydemo.azurecr.io/kubernetesdemo"
+          ports:
+          - containerPort: 80
