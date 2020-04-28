@@ -5,11 +5,8 @@ metadata:
     labels:
         app: "kubernetesdemo"
 spec:
-    type: LoadBalancer
     ports:
     - port: 80
-      targetPort: http
-      protocol: TCP
-      name: http
+      targetPort: 3000
     selector:
         app: "kubernetesdemo"
