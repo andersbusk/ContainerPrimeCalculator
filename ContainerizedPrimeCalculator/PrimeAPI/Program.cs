@@ -20,6 +20,7 @@ namespace PrimeAPI
                             authenticationId: "hZlzRkQdSebh1lcIZP/wJGi5vR72XJIsFa5+FMNdB8cCx2zOtaVSccQ3JGIizQsNbQ5KJWCCmYxht77gvQwc8A==")
             .CreateLogger();
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
