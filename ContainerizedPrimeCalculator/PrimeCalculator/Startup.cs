@@ -10,14 +10,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace PrimeCalculator
+namespace PrimeCorrectnessService
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
+            var StartUpTimeStamp = DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
+
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("Logs/" + StartUpTimeStamp + "_log.txt")
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -36,10 +42,7 @@ namespace PrimeCalculator
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
