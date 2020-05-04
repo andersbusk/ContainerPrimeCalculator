@@ -14,8 +14,8 @@ spec:
           image: "kubernetescontainerregistrydemo.azurecr.io/kubernetesdemo"
           ports:
           - containerPort: 80
- resources:
- requests:
-    cpu: 250m
- limits:
-    cpu: 500m
+resources:
+  requests:
+     cpu: 250m
+  limits:
+     cpu: 500m
