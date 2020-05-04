@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["PrimeCalculator/PrimeCalculator.csproj", "PrimeCalculator/"]
-RUN dotnet restore "PrimeCalculator/PrimeCalculator.csproj"
+COPY ["PrimeAPI/PrimeAPI.csproj", "PrimeAPI/"]
+RUN dotnet restore "PrimeAPI/PrimeAPI.csproj"
 COPY . .
-WORKDIR "/src/PrimeCalculator"
-RUN dotnet build "PrimeCalculator.csproj" -c Release -o /app/build
+WORKDIR "/src/PrimeAPI"
+RUN dotnet build "PrimeAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PrimeCalculator.csproj" -c Release -o /app/publish
+RUN dotnet publish "PrimeAPI.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PrimeCalculator.dll"]
+ENTRYPOINT ["dotnet", "PrimeAPI.dll"]

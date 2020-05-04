@@ -14,7 +14,6 @@ namespace Controllers
     [Route("[controller]")]
     public class PrimeNumberController : ControllerBase
     {
-        private string outputFolder = Directory.GetCurrentDirectory();
 
         [HttpGet]
         public string Get()
