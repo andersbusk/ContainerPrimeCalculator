@@ -14,6 +14,7 @@ namespace PrimeAPI
     {
         public static void Main(string[] args)
         {
+
             Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.AzureAnalytics(workspaceId: "26ad584a-adb2-4c8a-9339-c9777999f169",
