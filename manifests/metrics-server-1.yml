@@ -1,6 +1,6 @@
 containers:
-- name: metrics-server
-    image: k8s.gcr.io/metrics-server-amd64:v0.3.6
-    command:
-      - /metrics-server
-      - --kubelet-insecure-tls
+  - name: metrics-server
+      image: k8s.gcr.io/metrics-server-amd64:v0.3.6
+      command:
+        - /metrics-server
+        - --kubelet-insecure-tls
