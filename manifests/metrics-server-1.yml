@@ -4,3 +4,6 @@ containers:
     command:
       - /metrics-server
       - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP
+      - --source=kubernetes.summary_api:''?useServiceAccount=true&kubeletHttps=true&kubeletPort=10250&insecure=true
+      - --requestheader-client-ca-file=/etc/kubernetes/cert/ca.pem
