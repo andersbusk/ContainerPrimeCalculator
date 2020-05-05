@@ -58,7 +58,15 @@ jobs:
           manifests/deployment-1.yml
           manifests/service-1.yml
           manifests/ingress-1.yml
-          manifests/hpa-1.yml   
+          manifests/hpa-1.yml
+          manifests/metrics/clusterRole.yml
+          manifests/metrics/ClusterRoleBinding.yml
+          manifests/metrics/ClusterRoleBindingMetricsServer.yml
+          manifests/metrics/clusterRoleMetricsServer.yml
+          manifests/metrics/Deployment.yml
+          manifests/metrics/RoleBinding.yml
+          manifests/metrics/Service.yml
+          manifests/metrics/ServiceAccount.yml
         images: |
           kubernetescontainerregistrydemo.azurecr.io/kubernetesdemo:${{ github.sha }}
         imagepullsecrets: |
