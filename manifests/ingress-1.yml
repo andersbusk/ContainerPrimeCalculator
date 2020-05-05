@@ -5,6 +5,13 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi   
   rules:
   - host: kubernetes-demo.nothing.tk
     http:
